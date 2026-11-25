@@ -34,6 +34,14 @@ jobs:
         run: |
           wget https://github.com/aseprite/skia/releases/download/m102-861e4743af/Skia-Linux-Release-x64-libstdc++.zip
           unzip Skia-Linux-Release-x64-libstdc++.zip -d skia
+      
+          # Some Aseprite release configurations expect these third-party sources
+          mkdir -p skia/third_party/externals/icu/flutter
+          mkdir -p skia/third_party/externals/libjpeg-turbo
+      
+          #find skia -maxdepth 5 -type f -o -type d | grep -E 'icu|libjpeg'
+          test -f skia/third_party/externals/icu/flutter/icudtl.dat
+          test -d skia/third_party/externals/libjpeg-turbo
 
       - name: Configure Build
         run: |
